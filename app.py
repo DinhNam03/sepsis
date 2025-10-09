@@ -1,0 +1,37 @@
+import streamlit as st
+import matplotlib.pyplot as plt
+from sklearn.metrics import RocCurveDisplay, confusion_matrix, ConfusionMatrixDisplay
+from pandas import read_csv
+import joblib
+import os
+
+st.set_page_config(page_title="Acute pancreatitis - PAR index", layout="wide")
+BASE_DIR = os.path.dirname(__file__)
+
+@st.cache_resource
+def load_data():
+    return read_csv(os.path.join(BASE_DIR, 'X_test.csv')), read_csv(os.path.join(BASE_DIR, 'Y_test.csv'))
+
+@st.cache_resource
+def load_model():
+    return {
+        'Ada Boost': joblib.load(os.path.join(BASE_DIR, 'AdaBoost.joblib')),
+        'Extra Trees': joblib.load(os.path.join(BASE_DIR, 'ExtraTrees.joblib')),
+        'Gradient Boosting': joblib.load(os.path.join(BASE_DIR, 'GradientBoosting.joblib')),
+        'Random Forest': joblib.load(os.path.join(BASE_DIR, 'RandomForest.joblib'))
+    }
+
+X_test, Y_test = load_data()
+models = load_model()
+st.title('Association between the development of sepsis and the triglyceride-glucose index in acute pancreatitis patients')
+
+mortalities = ['mortality_7d', 'mortality_28d', 'mortality_90d', 'mortality_1y']
+titles = ['7 days', '28 days', '90 days', '1 years']
+fig, axes = plt.subplots(nrows=1, ncols=4, figsize=(20, 8))
+for i in range(len(mortalities)):
+    y_test = Y_test[mortalities[i]]
+    for name in models:
+        model = models[name]
+        RocCurveDisplay.from_estimator(estimator=model, X=X_test, y=y_test, ax=axes[i], name=name)
+    axes[i].set_title(titles[i])
+st.pyplot(fig)
