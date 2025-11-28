@@ -13,12 +13,12 @@ st.set_page_config(
 # ================== SIDEBAR ==================
 st.sidebar.title("🩺 Ứng dụng viêm tụy cấp")
 page = st.sidebar.radio(
-    "Navigation",
-    ["🔮 Prediction", "📊 Model Evaluation"]
+    "Điều hướng",
+    ["Dự đoán", "Mô hình đánh giá"]
 )
 
 # ================== PAGE ROUTING ==================
-if page == "🔮 Prediction":
+if page == "Dự đoán":
     predict.show()
 else:
     model.show()

@@ -7,7 +7,7 @@ import os
 
 def show():
     BASE_DIR = os.path.dirname(__file__)
-    st.title("📊 Model Evaluation & ROC Curves")
+    st.title("Đánh giá mô hình & đường cong ROC")
 
     @st.cache_resource
     def load_data():
@@ -115,7 +115,7 @@ def show():
     # st.pyplot(fig)
 
     st.markdown("---")
-    st.caption("ROC curves for multiple mortality endpoints using different classifiers.")
+    # st.caption("ROC curves for multiple mortality endpoints using different classifiers.")
     
 
 

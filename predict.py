@@ -33,28 +33,28 @@ def show():
         
     with col1:
         vars['age'] = st.number_input('Age', min_value=20, max_value=93, step=1)
-        vars['wbc'] = st.number_input('WBC', min_value=0.3, max_value=187.1, step=0.1)
-        vars['rbc'] = st.number_input('RBC', min_value=1.9, max_value=5.9, step=0.1)
-        vars['rdw'] = st.number_input('RDW', min_value=11.9, max_value=32.8, step=0.1)
+        vars['wbc'] = st.number_input('White blood cell (WBC)', min_value=0.3, max_value=187.1, step=0.1)
+        vars['rbc'] = st.number_input('Red blood cell (RBC)', min_value=1.9, max_value=5.9, step=0.1)
+        vars['rdw'] = st.number_input('Red blood cell distribution width (RDW)', min_value=11.9, max_value=32.8, step=0.1)
         vars['platelets'] = st.number_input('Platelets', min_value=5, max_value=747, step=1)
         vars['potassium'] = st.number_input('Potassium', min_value=3.1, max_value=5.7, step=0.1)
         
     with col2:
         vars['creatinine'] = st.number_input('Creatinine', min_value=0.3, max_value=10.1, step=0.1)
         vars['glucose'] = st.number_input('Glucose', min_value= 4, max_value=215, step=1)
-        vars['alp'] = st.number_input('ALP', min_value=27.3, max_value=4153.5, step=0.1)
-        vars['ptt'] = st.number_input('PTT', min_value=20.4, max_value=119.8, step=0.1)
-        vars['inr'] = st.number_input('INR', min_value=0.9, max_value=5.8, step=0.1)
-        vars['tyg'] = st.number_input('TyG', min_value=5.9, max_value=11.9, step=0.1)
+        vars['alp'] = st.number_input('Alkaline phosphatase (ALP)', min_value=27.3, max_value=4153.5, step=0.1)
+        vars['ptt'] = st.number_input('Partial activated thromboplastin time (PTT)', min_value=20.4, max_value=119.8, step=0.1)
+        vars['inr'] = st.number_input('international normalized ratio (INR)', min_value=0.9, max_value=5.8, step=0.1)
+        vars['tyg'] = st.number_input('TyG index', min_value=5.9, max_value=11.9, step=0.1)
         
         
         
 
     st.markdown("---")
-    arr = ['Non-Sepsis', 'Sepsis']
+    arr = ['Nhiễm khuẩn huyết', 'Không nhiễm khuẩn huyết']
 
     # PREDICTION 
-    if st.button('🔍 Predict'):
+    if st.button('🔍 Dự đoán'):
         # st.subheader("🧾 Input Summary")
         df_pred = pd.DataFrame([vars])
         # st.write(df_pred.iloc[0])
@@ -62,9 +62,9 @@ def show():
         pred_prob = rfc.predict_proba(df_pred.iloc[:1])[0]
         st.write(df_pred.iloc[-1:])
 
-        st.subheader("🧠 Prediction Result")
-        st.success(f"**Prediction:** {arr[pred]}")
-        st.info(f"**Probability:** {pred_prob[pred]:.2f}")
+        st.subheader("Kết quả dự đoán")
+        st.success(f"**Dự đoán:** {arr[pred]}")
+        st.info(f"**Xác xuất:** {pred_prob[pred]:.2f}")
 
         shap_values = explainer(df_pred.iloc[:1])
         #shap.plots.w
