@@ -6,3 +6,6 @@ matplotlib
 shap
 streamlit
 lifelines
+seaborn
+plotly
+
