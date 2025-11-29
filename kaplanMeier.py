@@ -1,23 +1,3 @@
-# import streamlit as st
-# import matplotlib.pyplot as plt
-# import joblib
-
-# def show():
-#     st.title("📈 Kaplan–Meier Survival Analysis")
-
-#     # Load mô hình KM
-#     all_models = joblib.load("km_all_models.joblib")
-
-#     selected = st.selectbox("Chọn thời gian:", list(all_models.keys()))
-#     models = all_models[selected]
-
-#     fig, ax = plt.subplots(figsize=(8, 4))
-#     for g, kmf in models.items():
-#         kmf.plot(ax=ax)
-
-#     st.pyplot(fig)
-
-
 import streamlit as st
 import matplotlib.pyplot as plt
 import joblib
@@ -57,4 +37,7 @@ def show():
 
     plt.tight_layout()
     st.pyplot(fig)
+
+
+
 
