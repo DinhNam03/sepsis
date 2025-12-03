@@ -4,6 +4,7 @@ import model
 import kaplanMeier
 import roctyg
 import chart
+import RCS
 
 
 # ================== CONFIG ==================
@@ -36,6 +37,9 @@ elif page == "ROC":
 
 elif page == "Kaplan–Meier":
     kaplanMeier.show()
+
+elif page == "RCS":
+    RCS.show()
 
 # ================== CUSTOM FOOTER ==================
 st.markdown(

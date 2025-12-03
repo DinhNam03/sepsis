@@ -6,7 +6,7 @@ def show():
     st.title("Phân tích khả năng sống sót (Kaplan–Meier)")
 
     # Load toàn bộ mô hình
-    all_models, all_pvals, groups = joblib.load("km_all_models.joblib")
+    all_models, all_pvals, groups = joblib.load("kaplanmeier_models.joblib")
 
     titles = list(all_models.keys())  # 4 thời điểm
     fig, axes = plt.subplots(2, 2, figsize=(20, 16))
@@ -22,18 +22,14 @@ def show():
             kmf.plot(ax=ax)
 
         # Tiêu đề và trục
+        ax.legend(loc="upper right") 
         ax.set_title(f"{time_name}", fontsize=18)
         ax.set_xlabel("Time (days)")
         ax.set_ylabel("Survival Probability")
 
         # Ghi Log-rank lên trên mỗi hình
-        ax.text(
-            0.05, 0.05,
-            f"Log-rank p = {pval:.4f}",
-            transform=ax.transAxes,
-            fontsize=14,
-            bbox=dict(facecolor="white", alpha=0.7)
-        )
+        p_text = "Log-rank p < 0.001" if pval < 0.001 else f"Log-rank p = {pval:.4f}"
+        ax.text(0.05, 0.05, p_text, transform=ax.transAxes, fontsize=14, verticalalignment='bottom')
 
     plt.tight_layout()
     st.pyplot(fig)
