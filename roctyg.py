@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import joblib
 
 def show():
-    st.title("ROC Curves for Sepsis Prediction")
+    st.title("Đường cong ROC để dự đoán nhiễm trùng huyết")
 
     roc_results = joblib.load("roc_tyg.joblib")
 

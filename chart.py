@@ -9,7 +9,7 @@ def show():
     st.title(" Trực quan hóa Boxplot ")
 
     # Load data
-    df = pd.read_csv("tyg5.csv")
+    df = pd.read_csv("tyg6.csv")
 
     # ================================
     # Hàm remove outliers theo IQR

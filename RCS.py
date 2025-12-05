@@ -8,21 +8,14 @@ import statsmodels.formula.api as smf
 from scipy.stats import chi2
 
 
-# ==========================
-# Hàm format p-value
-# ==========================
 def format_p(p):
     if p < 0.001:
         return "p < 0.001"
     return f"{p:.3f}"
 
-
-# ==========================
-# Giao diện Streamlit
-# ==========================
 def show():
 
-    st.title("📈 Restricted Cubic Spline Analysis (TyG → Sepsis)")
+    st.title(" (TyG → Sepsis)")
 
     df = pd.read_csv("tyg1.csv")
  
@@ -66,8 +59,8 @@ def show():
     plt.axvline(df["tyg"].median(), color="gray", linestyle="--", linewidth=0.7)
 
     plt.xlabel("TyG index", fontsize=12)
-    plt.ylabel("Sepsis probability", fontsize=12)
-    plt.title("Restricted Cubic Spline: TyG vs Sepsis", fontsize=14)
+    plt.ylabel("Sepsis ", fontsize=12)
+    plt.title("TyG vs Sepsis", fontsize=14)
 
     plt.text(
         0.98, 0.92,
