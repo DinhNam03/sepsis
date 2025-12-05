@@ -2,28 +2,27 @@ import streamlit as st
 import matplotlib.pyplot as plt
 from sklearn.metrics import RocCurveDisplay, roc_curve, auc
 import pandas as pd
+from pandas import read_csv
 import joblib
 import os
 
 def show():
 
     st.title("So sánh ROC giữa các mô hình — Sepsis")
+    BASE_DIR = os.path.dirname(__file__)
 
     @st.cache_resource
     def load_data():
-        X_test = pd.read_csv("X_test.csv")
-        y_test = pd.read_csv("y_test.csv")
-        return X_test, y_test
+        return read_csv(os.path.join(BASE_DIR, 'X_test.csv')), read_csv(os.path.join(BASE_DIR, 'y_test.csv'))
 
     @st.cache_resource
     def load_models():
-        models = {
-            "Ada Boost": joblib.load("AdaBoost.joblib"),
-            "Extra Trees": joblib.load("ExtraTrees.joblib"),
-            "Gradient Boosting": joblib.load("GradientBoosting.joblib"),
-            "Random Forest": joblib.load("RandomForest.joblib"),
-        }
-        return models
+        return {
+        'Ada Boost': joblib.load(os.path.join(BASE_DIR, 'AdaBoost.joblib')),
+        'Extra Trees': joblib.load(os.path.join(BASE_DIR, 'ExtraTrees.joblib')),
+        'Gradient Boosting': joblib.load(os.path.join(BASE_DIR, 'GradientBoosting.joblib')),
+        'Random Forest': joblib.load(os.path.join(BASE_DIR, 'RandomForest.joblib'))
+    }
 
     X_test, y_test = load_data()
     base_models = load_models()
