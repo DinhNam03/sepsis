@@ -9,7 +9,7 @@ def show():
     st.title(" Trực quan hóa Boxplot ")
 
     # Load data
-    df = pd.read_csv("tyg6.csv")
+    df = pd.read_csv("tyg.csv")
 
     # ================================
     # Hàm remove outliers theo IQR
@@ -60,8 +60,9 @@ def show():
     st.header("Boxplot Chart 2")
 
     cols2 = [
-        'age','wbc','rbc','rdw','hemoglobin','platelets','aniongap','bicarbonate',
-        'calcium','chloride','potassium','creatinine','alt','alp','ast','pt','ptt','inr'
+        'age', 'wbc_max', 'rbc','rdw_max', 'hemoglobin_max','platelets', 
+        'aniongap_max', 'bicarbonate','calcium', 'chloride', 'potassium_max',
+       'creatinine_max','alt_max','alp_max', 'ast_max', 'pt_max', 'ptt_max', 'inr_max'
     ]
 
     titles2 = [

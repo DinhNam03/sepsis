@@ -28,19 +28,45 @@ def show():
     col1, col2 = st.columns(2)
     vars = {}
 
+# age               20.000000
+#  wbc_max            1.700000
+#  rbc                1.931818
+#  rdw_max           12.000000
+#  chloride          81.000000
+#  potassium_max      3.600000
+#  creatinine_max     0.300000
+#  alp_max           36.000000
+#  pt_max             9.400000
+#  ptt_max           20.400000
+#  inr_max            0.900000
+#  tyg_max            7.347622
+#  dtype: float64,
+#  age                  93.000000
+#  wbc_max           12500.000000
+#  rbc                   5.924759
+#  rdw_max              34.900000
+#  chloride            135.000000
+#  potassium_max        10.000000
+#  creatinine_max       15.200000
+#  alp_max            5006.000000
+#  pt_max              150.000000
+#  ptt_max             150.000000
+#  inr_max              15.600000
+#  tyg_max              15.839774
+
     with col1:
         vars['age'] = st.number_input('Age', min_value=20, max_value=93, step=1)
-        vars['wbc'] = st.number_input('White blood cell (WBC)', min_value=0.3, max_value=187.1, step=0.1)
+        vars['wbc_max'] = st.number_input('White blood cell (WBC)', min_value=1.7, max_value=12500.0, step=0.1)
         vars['rbc'] = st.number_input('Red blood cell (RBC)', min_value=1.9, max_value=5.9, step=0.1)
-        vars['rdw'] = st.number_input('Red blood cell distribution width (RDW)', min_value=11.9, max_value=32.8, step=0.1)
-        vars['platelets'] = st.number_input('Platelets', min_value=5, max_value=747, step=1)
-        vars['creatinine'] = st.number_input('Creatinine', min_value=0.3, max_value=10.1, step=0.1)
+        vars['rdw_max'] = st.number_input('Red blood cell distribution width (RDW)', min_value=12.0, max_value=34.9, step=0.1)
+        vars['potassium_max'] = st.number_input('Potassium', min_value=3.6, max_value=10.0, step=0.1)
+        vars['creatinine_max'] = st.number_input('Creatinine', min_value=0.3, max_value=15.2, step=0.1)
     with col2:
-        vars['glucose'] = st.number_input('Glucose', min_value= 4, max_value=215, step=1)
-        vars['alp'] = st.number_input('Alkaline phosphatase (ALP)', min_value=27.3, max_value=4153.5, step=0.1)
-        vars['ptt'] = st.number_input('Partial activated thromboplastin time (PTT)', min_value=20.4, max_value=119.8, step=0.1)
-        vars['inr'] = st.number_input('international normalized ratio (INR)', min_value=0.9, max_value=5.8, step=0.1)
-        vars['tyg'] = st.number_input('TyG index', min_value=5.9, max_value=11.9, step=0.1)
+        vars['alp_max'] = st.number_input('Alkaline phosphatase (ALP)', min_value=36, max_value=5006, step=1)
+        vars['pt_max'] = st.number_input('Prothrombin Time (PT)', min_value= 9.4, max_value=150.0, step=0.1)
+        vars['ptt_max'] = st.number_input('Partial activated thromboplastin time (PTT)', min_value=20.4, max_value=150.0, step=0.1)
+        vars['inr_max'] = st.number_input('international normalized ratio (INR)', min_value=0.9, max_value=15.6, step=0.1)
+        vars['tyg_max'] = st.number_input('TyG index', min_value=7.3, max_value=15.8, step=0.1)
         vars['aki'] = st.selectbox(label='Acute Kidney Injury (AKI)', options=[(0, 'No'), (1, 'Yes')], format_func=lambda v: v[1])[0]
         
     st.markdown("---")
@@ -62,8 +88,12 @@ def show():
         shap_values = explainer(df_pred.iloc[:1])
        
         # waterfall
-        fig, ax = plt.subplots(figsize=(8,4))
-        shap.plots.waterfall(shap_values[0, :, 1], show=False)
+        fig, ax = plt.subplots(figsize=(10, 6))
+        shap.plots.waterfall(
+            shap_values[0, :, 1],
+            show=False,
+            max_display=len(df_pred.columns)
+        )
         st.pyplot(fig)
 
                  

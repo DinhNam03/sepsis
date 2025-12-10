@@ -17,7 +17,7 @@ def show():
 
     st.title(" (TyG → Sepsis)")
 
-    df = pd.read_csv("tyg1.csv")
+    df = pd.read_csv("tyg.csv")
  
     model_linear = smf.glm(
         formula="sepsis ~ tyg",
